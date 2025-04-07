@@ -880,6 +880,14 @@ MonoBehaviour:
   - {fileID: 1967285564}
   - {fileID: 1645887665}
   hasWeapons: 000000
+  ammo: 0
+  coin: 0
+  health: 100
+  hasGrenades: 0
+  maxAmmo: 999
+  maxCoin: 99999
+  maxHealth: 100
+  maxHasGrenades: 4
 --- !u!136 &835072019
 CapsuleCollider:
   m_ObjectHideFlags: 0
