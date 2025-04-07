@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tyep: 4
-  value: 0
+  value: 1
 --- !u!135 &8288668704572050471
 SphereCollider:
   m_ObjectHideFlags: 0
