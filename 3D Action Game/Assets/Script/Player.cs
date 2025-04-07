@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     Rigidbody rigid;
     Animator anim;
+    GameObject nearObject;
 
     void Awake()
     {
@@ -100,5 +101,19 @@ public class Player : MonoBehaviour
             anim.SetBool("isJump", false);
             isJump = false;
         }
+    }
+
+    void onTriggerStay(Collider other)
+    {
+        if (other.tag == "Weapon")
+            nearObject = other.gameObject;
+
+        Debug.Log(nearObject.name);
+    }
+
+    void onTriggerExit(Collider other)
+    {
+        if (other.tag == "Weapon")
+            nearObject = null;
     }
 }
