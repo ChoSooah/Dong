@@ -520,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5903297864969995812, guid: 8f5e135a19626f544908fc8f156144b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.24
+      value: 2.39
       objectReference: {fileID: 0}
     - target: {fileID: 5903297864969995812, guid: 8f5e135a19626f544908fc8f156144b9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -874,20 +874,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb0815bf51aeac847b00277a87e9af4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  weapons:
-  - {fileID: 945130074}
-  - {fileID: 1967285564}
-  - {fileID: 1645887665}
-  hasWeapons: 000000
+  Speed: 0
+  Weapon: []
+  hasWeapon: 
+  grenads: []
+  hasGrenade: 0
   ammo: 0
   coin: 0
   health: 100
-  hasGrenades: 0
   maxAmmo: 999
   maxCoin: 99999
   maxHealth: 100
-  maxHasGrenades: 4
+  maxHasGrenade: 0
 --- !u!136 &835072019
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1007,11 +1005,6 @@ PrefabInstance:
 --- !u!4 &945130073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1873072230472789115, guid: c2ec4bfd1a6491c49a0c34b8dc3a7639, type: 3}
-  m_PrefabInstance: {fileID: 945130072}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &945130074 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1348174882345252545, guid: c2ec4bfd1a6491c49a0c34b8dc3a7639, type: 3}
   m_PrefabInstance: {fileID: 945130072}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1291208976
@@ -1393,11 +1386,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 924136447322616994, guid: 203326381d9b54d489646c6c2f61f53a, type: 3}
   m_PrefabInstance: {fileID: 1645887663}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1645887665 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 547435428816858648, guid: 203326381d9b54d489646c6c2f61f53a, type: 3}
-  m_PrefabInstance: {fileID: 1645887663}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1698058736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,11 +1722,6 @@ PrefabInstance:
 --- !u!4 &1967285563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2285952976136801637, guid: a2e051660762cbe4494c17a095a95e10, type: 3}
-  m_PrefabInstance: {fileID: 1967285562}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1967285564 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1509416925549156319, guid: a2e051660762cbe4494c17a095a95e10, type: 3}
   m_PrefabInstance: {fileID: 1967285562}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2055054364 stripped
@@ -6898,7 +6881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc420ab41666eda488845b1462d82041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tyep: 4
+  type: 0
   value: 1
 --- !u!1 &4654344573407910139 stripped
 GameObject:
@@ -7006,7 +6989,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3418189457470335986, guid: 759c859268e402a43a5cf5ceae797ece, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.38
+      value: 16.55
       objectReference: {fileID: 0}
     - target: {fileID: 3418189457470335986, guid: 759c859268e402a43a5cf5ceae797ece, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7079,7 +7062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6269560334489484704, guid: 8b88ed1f0612250449ed297a0046ae74, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.57
+      value: 16.01
       objectReference: {fileID: 0}
     - target: {fileID: 6269560334489484704, guid: 8b88ed1f0612250449ed297a0046ae74, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7349,7 +7332,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4973387350411779542, guid: 21a37c6a00791a349b20d2fe4e022762, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.3
+      value: -5.93
       objectReference: {fileID: 0}
     - target: {fileID: 4973387350411779542, guid: 21a37c6a00791a349b20d2fe4e022762, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7357,7 +7340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4973387350411779542, guid: 21a37c6a00791a349b20d2fe4e022762, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.28
+      value: 22.62
       objectReference: {fileID: 0}
     - target: {fileID: 4973387350411779542, guid: 21a37c6a00791a349b20d2fe4e022762, type: 3}
       propertyPath: m_LocalRotation.w

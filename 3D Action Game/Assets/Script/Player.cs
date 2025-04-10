@@ -1,21 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class Player : MonoBehaviour
+public class NewBehaviourScript : MonoBehaviour
 {
-    public float speed;
-    public GameObject[] weapons;
-    public bool[] hasWeapons;
+    public float Speed;
+    public GameObject[] Weapon;
+    public bool[] hasWeapon;
+    public GameObject[] grenads;
+    public int hasGrenade;
 
     public int ammo;
     public int coin;
     public int health;
-    public int hasGrenades;
 
     public int maxAmmo;
     public int maxCoin;
     public int maxHealth;
-    public int maxHasGrenades;
-
+    public int maxHasGrenade;
 
     float hAxis;
     float vAxis;
@@ -27,25 +31,29 @@ public class Player : MonoBehaviour
     bool sDown2;
     bool sDown3;
 
+
     bool isJump;
     bool isDodge;
     bool isSwap;
 
+    Rigidbody Rigid;
+    Animator Anim;
+
     Vector3 moveVec;
     Vector3 dodgeVec;
 
-    Rigidbody rigid;
-    Animator anim;
     GameObject nearObject;
     GameObject equipWeapon;
-    int equipWeaponIndex = -1;
+    int equipWeapoIndex = -1;
 
+    // Start is called before the first frame update
     void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
-        anim = GetComponentInChildren<Animator>();
+        Rigid = GetComponent<Rigidbody>();
+        Anim = GetComponentInChildren<Animator>();
     }
 
+    // Update is called once per frame
     void Update()
     {
         GetInput();
@@ -55,8 +63,10 @@ public class Player : MonoBehaviour
         Dodge();
         Swap();
         Interation();
-    }
 
+
+
+    }
     void GetInput()
     {
         hAxis = Input.GetAxisRaw("Horizontal");
@@ -68,74 +78,64 @@ public class Player : MonoBehaviour
         sDown2 = Input.GetButtonDown("Swap2");
         sDown3 = Input.GetButtonDown("Swap3");
     }
-
     void Move()
     {
+
         moveVec = new Vector3(hAxis, 0, vAxis).normalized;
 
         if (isDodge)
-        {
             moveVec = dodgeVec;
-        }
 
         if (isSwap)
-        {
             moveVec = Vector3.zero;
-        }
 
-        if (wDown)
-            transform.position += moveVec * speed * 0.3f * Time.deltaTime;
-        else
-            transform.position += moveVec * speed * Time.deltaTime;
+        transform.position += moveVec * Speed * (wDown ? 0.3f : 1f) * Time.deltaTime;
 
-        anim.SetBool("isRun", moveVec != Vector3.zero);
-        anim.SetBool("isWalk", wDown);
+        Anim.SetBool("isRun", moveVec != Vector3.zero);
+        Anim.SetBool("isWalk", wDown);
+
     }
 
     void Turn()
     {
         transform.LookAt(transform.position + moveVec);
     }
-
     void Jump()
     {
         if (jDown && moveVec == Vector3.zero && !isJump && !isDodge && !isSwap)
         {
-            rigid.AddForce(Vector3.up * 15, ForceMode.Impulse);
-            anim.SetBool("isJump", true);
-            anim.SetTrigger("doJump");
+            Rigid.AddForce(Vector3.up * 15, ForceMode.Impulse);
+            Anim.SetBool("isJump", true);
+            Anim.SetTrigger("doJump");
             isJump = true;
         }
     }
-
     void Dodge()
     {
         if (jDown && moveVec != Vector3.zero && !isJump && !isDodge && !isSwap)
         {
             dodgeVec = moveVec;
-            speed *= 2;
-            anim.SetTrigger("doDodge");
+            Speed *= 2;
+            Anim.SetTrigger("doDodge");
             isDodge = true;
 
             Invoke("DodgeOut", 0.5f);
         }
     }
-
-
     void DodgeOut()
     {
-        speed *= 0.5f;
+        Speed *= 0.5f;
         isDodge = false;
     }
-
     void Swap()
     {
-        if (sDown1 && (!hasWeapons[0] || equipWeaponIndex == 0))
+        if (sDown1 && (!hasWeapon[0] || equipWeapoIndex == 0))
             return;
-        if (sDown2 && (!hasWeapons[1] || equipWeaponIndex == 1))
+        if (sDown2 && (!hasWeapon[1] || equipWeapoIndex == 1))
             return;
-        if (sDown3 && (!hasWeapons[2] || equipWeaponIndex == 2))
+        if (sDown3 && (!hasWeapon[2] || equipWeapoIndex == 2))
             return;
+
 
         int weaponIndex = -1;
         if (sDown1) weaponIndex = 0;
@@ -147,11 +147,11 @@ public class Player : MonoBehaviour
             if (equipWeapon != null)
                 equipWeapon.SetActive(false);
 
-            equipWeaponIndex = weaponIndex;
-            equipWeapon = weapons[weaponIndex];
+            equipWeapoIndex = weaponIndex;
+            equipWeapon = Weapon[weaponIndex];
             equipWeapon.SetActive(true);
 
-            anim.SetTrigger("doSwap");
+            Anim.SetTrigger("doSwap");
 
             isSwap = true;
 
@@ -161,9 +161,9 @@ public class Player : MonoBehaviour
 
     void SwapOut()
     {
+
         isSwap = false;
     }
-
     void Interation()
     {
         if (iDown && nearObject != null && !isJump && !isDodge)
@@ -172,22 +172,23 @@ public class Player : MonoBehaviour
             {
                 Item item = nearObject.GetComponent<Item>();
                 int weaponIndex = item.value;
-                hasWeapons[weaponIndex] = true;
+                hasWeapon[weaponIndex] = true;
 
                 Destroy(nearObject);
             }
         }
     }
 
+
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Floor")
         {
-            anim.SetBool("isJump", false);
+            Anim.SetBool("isJump", false);
             isJump = false;
         }
     }
-
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Item")
@@ -195,32 +196,35 @@ public class Player : MonoBehaviour
             Item item = other.GetComponent<Item>();
             switch (item.type)
             {
+
                 case Item.Type.Ammo:
                     ammo += item.value;
                     if (ammo > maxAmmo)
                         ammo = maxAmmo;
                     break;
+
                 case Item.Type.Coin:
                     coin += item.value;
                     if (coin > maxCoin)
                         coin = maxCoin;
                     break;
+
                 case Item.Type.Heart:
                     health += item.value;
                     if (health > maxHealth)
                         health = maxHealth;
                     break;
+
                 case Item.Type.Grenade:
-                    if (hasGrenades == maxHasGrenades)
-                        return;
-                    hasGrenades[hasGrenades].setActive(true);
-                    hasGrenades += item.value;
+                    hasGrenade += item.value;
+                    if (hasGrenade > maxHasGrenade)
+                        hasGrenade = maxHasGrenade;
                     break;
+
             }
             Destroy(other.gameObject);
         }
     }
-
     void OnTriggerStay(Collider other)
     {
         if (other.tag == "Weapon")
@@ -228,10 +232,10 @@ public class Player : MonoBehaviour
 
         Debug.Log(nearObject.name);
     }
-
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "Weapon")
             nearObject = null;
     }
+
 }
